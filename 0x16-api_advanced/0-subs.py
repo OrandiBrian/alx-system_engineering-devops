@@ -1,25 +1,19 @@
 #!/usr/bin/python3
-
+""" Function that queries the Reddit API """
 import requests
+import sys
+
 
 def number_of_subscribers(subreddit):
-    """
-    Queries the Reddit API and returns the number of subscribers for a given subreddit.
-    If not a valid subreddit, returns 0.
-    """
-    # Define the URL for the subreddit's about endpoint
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    
-    # Set custom User-Agent to avoid Too Many Requests error
-    headers = {'User-Agent': 'python:subreddit.subscriber.counter:v1.0 (by /u/username)'}
-    
-    # Make a request to the Reddit API
+    """  Args:
+        subreddit: subreddit name
+    Returns:
+        number of subscribers to the subreddit,
+        or 0 if subreddit requested is invalid"""
+    headers = {'User-Agent': 'xica369'}
+    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     response = requests.get(url, headers=headers, allow_redirects=False)
-    
-    # Check if the response status code is 200 (OK)
+
     if response.status_code == 200:
-        # Parse the JSON response and return the subscriber count
-        return response.json().get('data', {}).get('subscribers', 0)
-    else:
-        # If the subreddit is not valid or any other error, return 0
-        return 0
+        return (response.json().get("data").get("subscribers"))
+    return (0)
